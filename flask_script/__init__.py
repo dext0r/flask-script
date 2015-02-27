@@ -7,6 +7,7 @@ import sys
 import types
 import warnings
 from gettext import gettext as _
+from collecions import OrderedDict
 
 import argparse
 
@@ -77,7 +78,7 @@ class Manager(object):
 
         self.app = app
 
-        self._commands = dict()
+        self._commands = OrderedDict()
         self._options = list()
 
         self.usage = usage
