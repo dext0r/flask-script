@@ -7,7 +7,7 @@ import sys
 import types
 import warnings
 from gettext import gettext as _
-from collecions import OrderedDict
+from collections import OrderedDict
 
 import argparse
 
