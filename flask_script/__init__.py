@@ -143,18 +143,20 @@ class Manager(object):
 
         If your sub-Manager does not override this, any values for options will get lost.
         """
-        if app is None:
-            app = self.app
+        if self.app is None:
             if app is None:
                 raise Exception("There is no app here. This is unlikely to work.")
+            self.app = app
+        elif app is not None:
+            kwargs['app'] = app
 
-        if isinstance(app, Flask):
-            if kwargs:
-                import warnings
-                warnings.warn("Options will be ignored.")
-            return app
+        if isinstance(self.app, Flask):
+            # if kwargs:
+                # import warnings
+                # warnings.warn("Options will be ignored.")
+            return self.app
 
-        app = app(**kwargs)
+        app = self.app(**kwargs)
         self.app = app
         return app
 
@@ -380,6 +382,7 @@ class Manager(object):
 
             if handle is last_func and getattr(last_func, 'capture_all_args', False):
                 args.append(remaining_args)
+    
             try:
                 res = handle(*args, **config)
             except TypeError as err:
